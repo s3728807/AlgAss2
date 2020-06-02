@@ -5,6 +5,7 @@
 package solver;
 
 import grid.SudokuGrid;
+import grid.StdSudokuGrid;
 
 
 /**
@@ -12,16 +13,50 @@ import grid.SudokuGrid;
  */
 public class BackTrackingSolver extends StdSudokuSolver
 {
-    // TODO: Add attributes as needed.
 
     public BackTrackingSolver() {
-        // TODO: any initialisation you want to implement.
     } // end of BackTrackingSolver()
 
 
     @Override
     public boolean solve(SudokuGrid grid) {
-        // TODO: your implementation of the backtracking solver for standard Sudoku.
+        //System.out.println("solve");
+        int row = 0;
+        int col = 0;
+        while (grid.getGrid()[row][col]!=SudokuGrid.EMPTY)
+        {
+            col++;
+            if (col>=grid.getSize())
+            {
+                col = 0;
+                row++;
+            }
+            if (row>=grid.getSize())
+            {
+                return true;
+            }
+        }
+
+        for (int testValue:grid.getPossibleValues())
+        {
+            //System.out.println("testbalue");
+            StdSudokuGrid testGrid = grid.gridStdCopy();
+
+            testGrid.getGrid()[row][col] = testValue;
+
+            if (testGrid.rowConstraint(row) && testGrid.colConstraint(col) && testGrid.boxConstraint(row, col))
+            {
+                if (solve(testGrid))
+                {
+                    grid = testGrid.gridStdCopy();
+                    return true;
+                }
+            }
+        }
+
+        grid.getGrid()[row][col] = -1;
+
+        //System.out.println("x");
 
         // placeholder
         return false;
