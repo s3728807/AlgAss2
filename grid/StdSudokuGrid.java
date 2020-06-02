@@ -9,6 +9,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.lang.Math;
 
+import java.io.FileWriter;   // Import the FileWriter class
+import java.io.IOException;  // Import the IOException class to handle errors
+
 
 /**
  * Class implementing the grid for standard Sudoku.
@@ -30,8 +33,10 @@ public class StdSudokuGrid extends SudokuGrid
     public void initGrid(String filename)
         throws FileNotFoundException, IOException
     {
+        //scans file input
         Scanner scan = new Scanner(new File(filename));
         List<String> in = new ArrayList<String>();
+        //parses file input into string, separated by whitespaces or ','
         scan.useDelimiter("\\s+|,");
         while(scan.hasNext())
         {
@@ -39,12 +44,16 @@ public class StdSudokuGrid extends SudokuGrid
         }
         int[][] c = new int[10000][100];
 
+        //converts the size of the sudoku puzzle into an int
         c[0][0] = Integer.parseInt(in.get(0));
+
+        //converts the possible values into ints
         for (int x = 0; x<c[0][0]; x++)
                     c[1][x] = Integer.parseInt(in.get(1+x));
         for (int i = 0; i<=c[0][0]; i++)
             in.remove(0);
 
+        //converts the the tuples into ints
         int size = in.size();
         for (int i = 2; i<(size/3)+2;i++)
         {
@@ -55,15 +64,19 @@ public class StdSudokuGrid extends SudokuGrid
             }
         }
 
+        //sets the puzzle size
         setSize(c[0][0]);
+        //sets the possible values of the sudoku
         int[] pv = new int[getSize()];
         for (int i = 0; i<getSize(); i++)
         { 
             pv[i] = c[1][i];
         }
         setPossibleValue(pv);
+
         setNumCages((int) Math.sqrt(getSize()));
         
+        //initially fills the grid with -1, to represent empty spaces
         int[][] grid = new int[getSize()][getSize()];
 
         for (int i = 0; i<getSize(); i++)
@@ -74,12 +87,14 @@ public class StdSudokuGrid extends SudokuGrid
             }
         }
 
+        //creates an array of the tuples from the input
         List<Tuple> list = new ArrayList<Tuple>();
         for (int i = 2; i<(size/3)+2; i++)
         {
             list.add(new Tuple(c[i][0], c[i][1], c[i][2])); 
         }
 
+        //using the array of tuples, fills the sudoku with initial values
         setTuples(list);
         for (Tuple t:list)
         {
@@ -95,7 +110,16 @@ public class StdSudokuGrid extends SudokuGrid
     public void outputGrid(String filename)
         throws FileNotFoundException, IOException
     {
-        // TODO
+        try {
+            FileWriter myWriter = new FileWriter("filename.txt");
+            myWriter.write(toString());
+            myWriter.close();
+            System.out.println("Successfully wrote to the file.");
+          } 
+        catch (IOException e) {
+            System.out.println("An error occurred while trying to save the file.");
+            e.printStackTrace();
+          }
     } // end of outputBoard()
 
 
