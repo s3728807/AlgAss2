@@ -101,7 +101,7 @@ public class RmitSudoku
             if (bVisualise) {
                 System.out.println("Initial grid:");
                 // this will call grid.toString()
-                System.out.println(grid);
+                System.out.println(grid.toString());
             }
 
             // run solver
@@ -121,7 +121,7 @@ public class RmitSudoku
             if (bVisualise) {
                 System.out.println("Solved grid:");
                 // this will call grid.toString()
-                System.out.println(grid);
+                System.out.println(grid.toString());
             }
 
             // display time taken
