@@ -16,7 +16,7 @@
  */
 public abstract class SudokuGrid
 {
-    public final int EMPTY = -1;
+    public static final int EMPTY = -1;
     private int size = 0;
     private int numCages = 0;
     private int[] possibleValues;
@@ -118,6 +118,19 @@ public abstract class SudokuGrid
     public void setGrid(int[][] g)
     {
         grid = g;
+    }
+
+    public StdSudokuGrid gridStdCopy()
+    {
+        StdSudokuGrid copyOfGrid = new StdSudokuGrid();
+        copyOfGrid.setGrid(getGrid());
+        copyOfGrid.setNumCages(getNumCages());
+        copyOfGrid.setPossibleValue(getPossibleValues());
+        copyOfGrid.setSize(getSize());
+        copyOfGrid.setTuples(getTuples());
+        
+
+        return copyOfGrid;
     }
 
 } // end of abstract class SudokuGrid
