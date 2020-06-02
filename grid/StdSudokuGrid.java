@@ -26,10 +26,6 @@ public class StdSudokuGrid extends SudokuGrid
         super();
     } // end of StdSudokuGrid()
 
-
-    /* ********************************************************* */
-
-
     @Override
     public void initGrid(String filename)
         throws FileNotFoundException, IOException
@@ -173,38 +169,97 @@ public class StdSudokuGrid extends SudokuGrid
 
     public boolean rowConstraint(int row)
     {
-        int totalRow = 0;
         for (int c = 0; c<getSize(); c++)
         {
-            totalRow += getGrid()[row][c];
+            for (int c1 = c+1; c1<getSize(); c1++)
+            {
+                if (getGrid()[row][c] == getGrid()[row][c1] && getGrid()[row][c]>0)
+                {
+                    return false;
+                }
+            }
         }
 
-        return totalPV() == totalRow;
+        return true;
     }
 
     public boolean colConstraint(int col)
     {
-        int totalRow = 0;
         for (int r = 0; r<getSize(); r++)
         {
-            totalRow += getGrid()[r][col];
+            for (int r1 = r+1; r1<getSize(); r1++)
+            {
+                if (getGrid()[r][col] == getGrid()[r1][col] && getGrid()[r][col]>0)
+                {
+                    return false;
+                }
+            }
         }
 
-        return totalPV() == totalRow;
+        return true;
+    }
+
+    public int[] getBoxStart(int row, int col)
+    {
+        int[] s = new int[2];
+        for (int i = 0; i<getNumCages(); i++)
+        {
+            int ro = i*getNumCages();
+            for (int r = ro; r<ro+getNumCages(); r++)
+            {
+                for (int j = 0; j<getNumCages(); j++)
+                {
+                    int co = j*getNumCages();
+                    for (int c = j*getNumCages(); c<co+getNumCages(); c++)
+                    {
+                        if (r==row && c==col)
+                        {
+                            s[0] = ro;
+                            s[1] = co;
+                            return s;
+                        }
+                    }
+                }
+            }
+        }
+
+        return null;
     }
 
     public boolean boxConstraint(int row, int col)
     {
-        int totalBox = 0;
-        for (int r = row; r<row+getNumCages(); r++)
+        int index = 0;
+        int[] boxNum = new int[getSize()];
+
+        int[] s = new int[2];
+        s = getBoxStart(row, col);
+
+        if (s == null)
         {
-            for (int c = col; c<col+getNumCages(); c++)
+            return false;
+        }
+
+        for (int r = s[0]; r<s[0]+getNumCages(); r++)
+        {
+            for (int c = s[1]; c<s[1]+getNumCages(); c++)
             {
-                totalBox += getGrid()[r][c];
+                boxNum[index] = getGrid()[r][c];
+                index++;
             }
         }
 
-        return totalPV() == totalBox;
+        for (int r = 0; r<getSize(); r++)
+        {
+            for (int r1 = r+1; r1<getSize(); r1++)
+            {
+                if (boxNum[r] == boxNum[r1] && boxNum[r]>0)
+                {
+                    return false;
+                }
+            }
+        }        
+
+        return true;
     }
 
     public boolean validNumbers()
