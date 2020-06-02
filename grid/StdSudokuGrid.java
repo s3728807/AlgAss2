@@ -32,23 +32,26 @@ public class StdSudokuGrid extends SudokuGrid
     {
         Scanner scan = new Scanner(new File(filename));
         List<String> in = new ArrayList<String>();
+        scan.useDelimiter("\\s+|,");
         while(scan.hasNext())
         {
-            in.add(scan.nextLine());
+            in.add(scan.next());
         }
-        int[][] c = new int[in.size()][10];
-        
-        for (int i = 0; i<in.size();i++)
+        int[][] c = new int[10000][100];
+
+        c[0][0] = Integer.parseInt(in.get(0));
+        for (int x = 0; x<c[0][0]; x++)
+                    c[1][x] = Integer.parseInt(in.get(1+x));
+        for (int i = 0; i<=c[0][0]; i++)
+            in.remove(0);
+
+        int size = in.size();
+        for (int i = 2; i<(size/3)+2;i++)
         {
-            int x = 0;
-            for (int j = 0; j<in.get(i).length(); j++)
+            for (int x = 0; x<3; x++)
             {
-                if (in.get(i).charAt(j) != ' ' && in.get(i).charAt(j) != ',')
-                {
-                    c[i][x] = Character.getNumericValue(in.get(i).charAt(j));
-                    x++;
-                    
-                }                
+                c[i][x] = Integer.parseInt(in.get(0));
+                in.remove(0);
             }
         }
 
@@ -72,7 +75,7 @@ public class StdSudokuGrid extends SudokuGrid
         }
 
         List<Tuple> list = new ArrayList<Tuple>();
-        for (int i = 2; i<in.size(); i++)
+        for (int i = 2; i<(size/3)+2; i++)
         {
             list.add(new Tuple(c[i][0], c[i][1], c[i][2])); 
         }
