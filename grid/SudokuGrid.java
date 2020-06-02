@@ -5,15 +5,23 @@
  package grid;
 
  import java.io.*;
+ import java.util.ArrayList;
+ import java.util.List;
 
-
+ 
+ 
 /**
  * Abstract class representing the general interface for a Sudoku grid.
  * Both standard and Killer Sudoku extend from this abstract class.
  */
 public abstract class SudokuGrid
 {
-
+    public final int EMPTY = -1;
+    private int size = 0;
+    private int numCages = 0;
+    private int[] possibleValues;
+    private List<Tuple> tuplesList = new ArrayList<Tuple>();
+    private int[][] grid;
     /**
      * Load the specified file and construct an initial grid from the contents
      * of the file.  See assignment specifications and sampleGames to see
@@ -61,5 +69,55 @@ public abstract class SudokuGrid
      * @return True if grid satisfies all constraints of the game in question.
      */
     public abstract boolean validate();
+
+    public int getSize()
+    {
+        return size;
+    }
+
+    public void setSize(int s)
+    {
+        size = s;
+    }
+
+    public int getNumCages()
+    {
+        return numCages;
+    }
+
+    public void setNumCages(int nc)
+    {
+        numCages = nc;
+    }
+
+    public List<Tuple> getTuples()
+    {
+        return tuplesList;
+    }
+
+    public void setTuples(List<Tuple> t)
+    {
+        tuplesList = t;
+    }
+
+    public int[] getPossibleValues()
+    {
+        return possibleValues;
+    }
+
+    public void setPossibleValue(int[] pv)
+    {
+        possibleValues = pv;
+    }
+
+    public int[][] getGrid()
+    {
+        return grid;
+    }
+
+    public void setGrid(int[][] g)
+    {
+        grid = g;
+    }
 
 } // end of abstract class SudokuGrid
