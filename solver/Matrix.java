@@ -2,6 +2,8 @@ package solver;
 
 import java.util.List;
 import java.util.ArrayList;
+
+import grid.StdSudokuGrid;
 import grid.Tuple;
 
 public class Matrix 
@@ -21,6 +23,30 @@ public class Matrix
     public Matrix(int s) 
     {
         size = s;
+    }
+
+    public int[][] findBoxes(StdSudokuGrid solver)
+    {
+        int[][] boxes = new int[solver.getSize()][2];
+        int x = 0;
+        for (int row = 0; row<solver.getSize(); row+=Math.sqrt(solver.getSize()))
+        {
+            for (int col = 0; col<solver.getSize(); col+=Math.sqrt(solver.getSize()))
+            {
+                for (int j = 0; j<2; j++)
+                {
+                    if (j == 0)
+                        boxes[x][j] = row;
+                    else
+                    {
+                        boxes[x][j] = col;
+                        x++;
+                    }
+                }
+            }
+        }
+
+        return boxes;
     }
 
     public int getLeastOnes()
