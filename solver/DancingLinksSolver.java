@@ -4,6 +4,11 @@
 
 package solver;
 
+import java.util.List;
+
+import grid.LinkedList;
+import grid.Node;
+import grid.StdSudokuGrid;
 import grid.SudokuGrid;
 
 
@@ -12,19 +17,27 @@ import grid.SudokuGrid;
  */
 public class DancingLinksSolver extends StdSudokuSolver
 {
-    // TODO: Add attributes as needed.
-
     public DancingLinksSolver() {
-        // TODO: any initialisation you want to implement.
     } // end of DancingLinksSolver()
 
 
     @Override
     public boolean solve(SudokuGrid grid) {
-        // TODO: your implementation of the dancing links solver for Killer Sudoku.
+        StdSudokuGrid stdGrid = grid.gridStdCopy();
+        LinkedList linked = new LinkedList(new Matrix(grid.getSize()), stdGrid);
 
+        List<Integer> solved = exactCover(linked.getHead());
+        for (int s:solved)
+        {
+            System.out.println(s);
+        }
         // placeholder
         return false;
     } // end of solve()
+
+    public List<Integer> exactCover(Node n)
+    {
+        return null;
+    }
 
 } // end of class DancingLinksSolver
