@@ -6,9 +6,12 @@ public class Node
     private Node east;
     private Node west;
     private Node south;
-    private Tuple value;
+    private Tuple tuple;
+    private int value;
     private int row;
     private int col;
+
+    public Node(){}
 
     public Node(Tuple v, int r, int c)
     {
@@ -16,7 +19,7 @@ public class Node
         east = null;
         west = null;
         south = null;
-        value = v;
+        tuple = v;
         row = r;
         col = c;
     }
@@ -27,7 +30,29 @@ public class Node
         east = e;
         west = w;
         south = s;
-        value = v;
+        tuple = v;
+    }
+
+    public Node(Node n, Node e, Node w, Node s, int r, int c)
+    {
+        north = n;
+        east = e;
+        west = w;
+        south = s;
+        tuple = null;
+        row = r;
+        col = c;
+    }
+
+    public Node(Tuple t, Node n, Node e, Node w, Node s, int r, int c)
+    {
+        north = n;
+        east = e;
+        west = w;
+        south = s;
+        tuple = t;
+        row = r;
+        col = c;
     }
 
     public int getRow() {
@@ -78,12 +103,12 @@ public class Node
         this.south = south;
     }
 
-    public Tuple getValue() {
-        return this.value;
+    public Tuple getTuple() {
+        return this.tuple;
     }
 
-    public void setValue(Tuple value) {
-        this.value = value;
+    public void setValue(Tuple tuple) {
+        this.tuple = tuple;
     }
         
 }
