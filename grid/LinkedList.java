@@ -174,7 +174,6 @@ public class LinkedList {
         Node curr = head;
         Node prev = curr;
         Node rt = head;
-        Node prevrt = rt;
         while (rt!=null && rt.getEast()!=null)
         {
             curr = rt;

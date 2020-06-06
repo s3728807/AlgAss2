@@ -7,7 +7,6 @@ public class Node
     private Node west;
     private Node south;
     private Tuple tuple;
-    private int value;
     private int row;
     private int col;
 
