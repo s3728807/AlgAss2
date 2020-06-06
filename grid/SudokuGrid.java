@@ -18,7 +18,7 @@ public abstract class SudokuGrid
 {
     public static final int EMPTY = -1;
     private int size = 0;
-    private int numCages = 0;
+    private int numBoxes = 0;
     private int[] possibleValues;
     private List<Tuple> tuplesList = new ArrayList<Tuple>();
     private int[][] grid;
@@ -80,14 +80,14 @@ public abstract class SudokuGrid
         size = s;
     }
 
-    public int getNumCages()
+    public int getNumBoxes()
     {
-        return numCages;
+        return numBoxes;
     }
 
-    public void setNumCages(int nc)
+    public void setNumBoxes(int nc)
     {
-        numCages = nc;
+        numBoxes = nc;
     }
 
     public List<Tuple> getTuples()
@@ -124,7 +124,7 @@ public abstract class SudokuGrid
     {
         StdSudokuGrid copyOfGrid = new StdSudokuGrid();
         copyOfGrid.setGrid(getGrid());
-        copyOfGrid.setNumCages(getNumCages());
+        copyOfGrid.setNumBoxes(getNumBoxes());
         copyOfGrid.setPossibleValue(getPossibleValues());
         copyOfGrid.setSize(getSize());
         copyOfGrid.setTuples(getTuples());

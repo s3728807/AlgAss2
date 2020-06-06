@@ -74,7 +74,7 @@ public class StdSudokuGrid extends SudokuGrid
         }
         setPossibleValue(pv);
 
-        setNumCages((int) Math.sqrt(getSize()));
+        setNumBoxes((int) Math.sqrt(getSize()));
         
         //initially fills the grid with -1, to represent empty spaces
         int[][] grid = new int[getSize()][getSize()];
@@ -169,11 +169,11 @@ public class StdSudokuGrid extends SudokuGrid
         }
 
         boolean boxBool = true;
-        for (int i = 0; i<getNumCages(); i++)
+        for (int i = 0; i<getNumBoxes(); i++)
         {
-            for (int j = 0; j<getNumCages(); j++)
+            for (int j = 0; j<getNumBoxes(); j++)
             {
-                if(!boxConstraint(i*getNumCages(), j*getNumCages()))
+                if(!boxConstraint(i*getNumBoxes(), j*getNumBoxes()))
                 {
                     boxBool = false;
                 }
@@ -229,15 +229,15 @@ public class StdSudokuGrid extends SudokuGrid
     public int[] getBoxStart(int row, int col)
     {
         int[] s = new int[2];
-        for (int i = 0; i<getNumCages(); i++)
+        for (int i = 0; i<getNumBoxes(); i++)
         {
-            int ro = i*getNumCages();
-            for (int r = ro; r<ro+getNumCages(); r++)
+            int ro = i*getNumBoxes();
+            for (int r = ro; r<ro+getNumBoxes(); r++)
             {
-                for (int j = 0; j<getNumCages(); j++)
+                for (int j = 0; j<getNumBoxes(); j++)
                 {
-                    int co = j*getNumCages();
-                    for (int c = j*getNumCages(); c<co+getNumCages(); c++)
+                    int co = j*getNumBoxes();
+                    for (int c = j*getNumBoxes(); c<co+getNumBoxes(); c++)
                     {
                         if (r==row && c==col)
                         {
@@ -266,9 +266,9 @@ public class StdSudokuGrid extends SudokuGrid
             return false;
         }
 
-        for (int r = s[0]; r<s[0]+getNumCages(); r++)
+        for (int r = s[0]; r<s[0]+getNumBoxes(); r++)
         {
-            for (int c = s[1]; c<s[1]+getNumCages(); c++)
+            for (int c = s[1]; c<s[1]+getNumBoxes(); c++)
             {
                 boxNum[index] = getGrid()[r][c];
                 index++;
