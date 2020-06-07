@@ -22,6 +22,9 @@ public abstract class SudokuGrid
     private int[] possibleValues;
     private List<Tuple> tuplesList = new ArrayList<Tuple>();
     private int[][] grid;
+    private int numCages;
+    List<Cage> cagesList = new ArrayList<Cage>();
+
     /**
      * Load the specified file and construct an initial grid from the contents
      * of the file.  See assignment specifications and sampleGames to see
@@ -167,37 +170,34 @@ public abstract class SudokuGrid
 
     public boolean validNumbers()
     {
-        boolean valid = true;
         for (int r = 0; r<getSize(); r++)
         {
             for (int c = 0; c<getSize(); c++)
             {
                 if (getGrid()[r][c] > getPossibleValues().length)
                 {
-                    valid = false;
+                    return false;
                 }
             }
         }
 
-        return valid;
+        return true;
     }
 
     public boolean isFull()
     {
-        boolean full = true;
-
         for (int row = 0; row<getSize(); row++)
         {
             for (int col = 0; col<getSize(); col++)
             {
                 if (getGrid()[row][col]!=EMPTY)
                 {
-                    full = false;
+                    return false;
                 }
             }
         }
 
-        return full;
+        return true;
     }
 
     public int getSize()
@@ -250,6 +250,22 @@ public abstract class SudokuGrid
         grid = g;
     }
 
+    public List<Cage> getCagesList() {
+        return this.cagesList;
+    }
+
+    public void setCagesList(List<Cage> cagesList) {
+        this.cagesList = cagesList;
+    }
+
+    public int getNumCages() {
+        return this.numCages;
+    }
+
+    public void setNumCages(int numCages) {
+        this.numCages = numCages;
+    }
+
     public StdSudokuGrid gridStdCopy()
     {
         StdSudokuGrid copyOfGrid = new StdSudokuGrid();
@@ -259,6 +275,19 @@ public abstract class SudokuGrid
         copyOfGrid.setSize(getSize());
         copyOfGrid.setTuples(getTuples());
         
+
+        return copyOfGrid;
+    }
+
+    public KillerSudokuGrid gridKillerCopy()
+    {
+        KillerSudokuGrid copyOfGrid = new KillerSudokuGrid();
+        copyOfGrid.setGrid(getGrid());
+        copyOfGrid.setNumBoxes(getNumBoxes());
+        copyOfGrid.setPossibleValue(getPossibleValues());
+        copyOfGrid.setSize(getSize());
+        copyOfGrid.setCagesList(getCagesList());
+        copyOfGrid.setNumCages(numCages);
 
         return copyOfGrid;
     }
