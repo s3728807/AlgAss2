@@ -58,7 +58,6 @@ public class BackTrackingSolver extends StdSudokuSolver
 
         //System.out.println("x");
 
-        // placeholder
         return false;
     } // end of solve()
 

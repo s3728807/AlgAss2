@@ -42,8 +42,8 @@ public class DancingLinksSolver extends StdSudokuSolver
             g[t1.getRow()][t1.getCol()] = t1.getVal();
             grid.setGrid(g);
         }
-        // placeholder
-        return false;
+        
+        return grid.validate();
     } // end of solve()
 
     public List<Integer> exactCover(LinkedList linkedList)

@@ -139,8 +139,7 @@ public class AlgorXSolver extends StdSudokuSolver
         }
         //System.out.println(out);
 
-        // placeholder
-        return false;
+        return grid.validate();
     } // end of solve()
 
     public int[][] findBoxes(StdSudokuGrid solver)
