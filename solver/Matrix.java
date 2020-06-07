@@ -3,7 +3,7 @@ package solver;
 import java.util.List;
 import java.util.ArrayList;
 
-import grid.StdSudokuGrid;
+import grid.SudokuGrid;
 import grid.Tuple;
 
 public class Matrix 
@@ -25,7 +25,7 @@ public class Matrix
         size = s;
     }
 
-    public int[][] findBoxes(StdSudokuGrid solver)
+    public int[][] findBoxes(SudokuGrid solver)
     {
         int[][] boxes = new int[solver.getSize()][2];
         int x = 0;
