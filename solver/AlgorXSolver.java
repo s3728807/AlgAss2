@@ -57,9 +57,11 @@ public class AlgorXSolver extends StdSudokuSolver
         for (;colCount<constraintSize; colCount++)
         {
             Tuple currCon = matrix.getConstraintsList().get(colCount);
+            //loops through every possibility
             for (int i = 0; i<matrix.getPossibilitiesList().size(); i++)
             {
                 Tuple currTup = matrix.getPossibilitiesList().get(i);
+                //checks if the possibile tuple matches the constraing
                 if (currCon.getRow() == currTup.getRow() && currCon.getCol() == currTup.getCol())
                 {
                     temp[i][colCount] = 1;
@@ -71,9 +73,11 @@ public class AlgorXSolver extends StdSudokuSolver
         for (;colCount<constraintSize*2; colCount++)
         {
             Tuple currCon = matrix.getConstraintsList().get(colCount);
+            //loops through every possibility
             for (int i = 0; i<matrix.getPossibilitiesList().size(); i++)
             {
                 Tuple currTup = matrix.getPossibilitiesList().get(i);
+                //checks if the possibile tuple matches the constraing
                 if (currCon.getRow() == currTup.getRow() && currCon.getVal() == currTup.getVal())
                 {
                     temp[i][colCount] = 1;
@@ -85,9 +89,11 @@ public class AlgorXSolver extends StdSudokuSolver
         for (;colCount<constraintSize*3; colCount++)
         {
             Tuple currCon = matrix.getConstraintsList().get(colCount);
+            //loops through every possibility
             for (int i = 0; i<matrix.getPossibilitiesList().size(); i++)
             {
                 Tuple currTup = matrix.getPossibilitiesList().get(i);
+                //checks if the possibile tuple matches the constraing
                 if (currCon.getCol() == currTup.getCol() && currCon.getVal() == currTup.getVal())
                 {
                     temp[i][colCount] = 1;
@@ -99,9 +105,11 @@ public class AlgorXSolver extends StdSudokuSolver
         for (;colCount<constraintSize*4; colCount++)
         {
             Tuple currCon = matrix.getConstraintsList().get(colCount);
+            //loops through every possibility
             for (int i = 0; i<matrix.getPossibilitiesList().size(); i++)
             {
                 Tuple currTup = matrix.getPossibilitiesList().get(i);
+                //checks if the possibile tuple matches the constraing
                 if (currCon.getBoxes() == currTup.getBoxes() && currCon.getVal() == currTup.getVal())
                 {
                     temp[i][colCount] = 1;
@@ -142,6 +150,7 @@ public class AlgorXSolver extends StdSudokuSolver
         return grid.validate();
     } // end of solve()
 
+    //finds all the starting positions of every boxes
     public int[][] findBoxes(StdSudokuGrid solver)
     {
         int[][] boxes = new int[solver.getSize()][2];
@@ -175,14 +184,17 @@ public class AlgorXSolver extends StdSudokuSolver
         if (colLeastOnes == -1)
             return null;
         
-        int r = 0;        
+        int r = 0;       
+        //for each row in the column with the least ones 
         for (; r<mtr.getPossibilitiesList().size(); r++)
         {
+            //if that row has a one in it
             if (mtr.getGrid()[r][colLeastOnes] == 1 && !mtr.isDeletedRow(r))
             {
                 mtr.addToSolution(r);
                 //System.out.println(r);
 
+                //deep copy of the matrix
                 Matrix testMatrix = new Matrix(mtr.getSize());
                 List<Integer> delrows = new ArrayList<Integer>();
                 for (int ro:mtr.getDeletedRows())    
@@ -220,18 +232,24 @@ public class AlgorXSolver extends StdSudokuSolver
                 }
                 testMatrix.setSolutionsList(l2);
                 testMatrix.setColumns(mtr.getColumns());
+                //end of deep copy
+
+                //for every column in the row
                 for (int j = mtr.getColumns()-1; j>=0; j--)
-                {
+                {   
+                    //if theres a one in it
                     if (mtr.getGrid()[r][j] == 1)
                     {
+                        //for every row in each column
                         for (int i = 0; i<mtr.getPossibilitiesList().size(); i++)
                         {
+                            //if theres a one, delete the row
                             if (mtr.getGrid()[i][j] == 1) 
                             {
                                 testMatrix.addDeltedRow(i);
                             }
                         } 
-
+                        //delete col
                         for (int x=j+1;x<testMatrix.getColumns(); x++) {
                             for (int y=0;y<testMatrix.getPossibilitiesList().size(); y++) {
                                 testMatrix.getGrid()[y][x-1] = testMatrix.getGrid()[y][x];

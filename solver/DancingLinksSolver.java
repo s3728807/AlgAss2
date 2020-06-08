@@ -64,6 +64,7 @@ public class DancingLinksSolver extends StdSudokuSolver
         }
         //System.out.println("col with least ones: "+outRow.getCol());
         
+        //goes down the col with the least ones
         while (outRow.getSouth() != null)
         {
             outRow = outRow.getSouth();
@@ -88,6 +89,7 @@ public class DancingLinksSolver extends StdSudokuSolver
                 currentCol = currentCol.getSouth();
             }
 
+            //goes to every col in the row
             while (currentCol.getEast()!=null)
             {
                 currentCol = currentCol.getEast();
@@ -96,19 +98,23 @@ public class DancingLinksSolver extends StdSudokuSolver
                 {
                     inRow = inRow.getEast();
                 }
+                //finds every row in the col
                 while (inRow.getSouth()!=null)
                 {
                     inRow = inRow.getSouth();
                     //System.out.println("delete row: "+inRow.getRow());
+                    //adds row to rows to be deleted
                     if (!deleteRows.contains(inRow.getRow())) deleteRows.add(inRow.getRow());
                     //list.deleteRow(delRow.getRow());
                 }
                 //System.out.println("    delete col: "+currentCol.getCol());
+                //adds col to cols to be deleted
                 if (!deleteCols.contains(currentCol.getCol())) deleteCols.add(currentCol.getCol());
                 //System.out.println("a");
                 //list.deleteCol(delCol.getCol());
             }
             // System.out.println("start row length: "+list.printRow().size());
+            //delete rows
             for (int r:deleteRows)
             {
                 //System.out.println("inside row length: "+list.printRow().size());
@@ -116,6 +122,7 @@ public class DancingLinksSolver extends StdSudokuSolver
             }
             // System.out.println("end row length: "+list.printRow().size());
             // System.out.println("start col length: "+list.printCol().size());
+            //delete cols
             for (int c:deleteCols)
             {
                 // if (list.printCol().size()==4)
@@ -124,6 +131,7 @@ public class DancingLinksSolver extends StdSudokuSolver
             }
             // System.out.println("end col length: "+list.printCol().size());
             // System.out.println("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
+            //recursion
             List<Integer> s = exactCover(list);
             if (s!=null)
             {

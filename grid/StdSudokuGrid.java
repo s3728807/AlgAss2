@@ -153,6 +153,7 @@ public class StdSudokuGrid extends SudokuGrid
         boolean rowBool = true;
         for (int row = 0; row<getSize(); row++)
         {
+            //checks every row to make sure that everything is legal
             if (!rowConstraint(row))
             {
                 rowBool = false;
@@ -162,6 +163,7 @@ public class StdSudokuGrid extends SudokuGrid
         boolean colBool = true;
         for (int col = 0; col<getSize(); col++)
         {
+            //checks every col to make sure that everything is legal
             if (!rowConstraint(col))
             {
                 colBool = false;
@@ -171,6 +173,7 @@ public class StdSudokuGrid extends SudokuGrid
         boolean boxBool = true;
         for (int i = 0; i<getNumBoxes(); i++)
         {
+            //checks every box to make sure that everything is legal
             for (int j = 0; j<getNumBoxes(); j++)
             {
                 if(!boxConstraint(i*getNumBoxes(), j*getNumBoxes()))

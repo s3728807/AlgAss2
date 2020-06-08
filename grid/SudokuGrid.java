@@ -73,6 +73,7 @@ public abstract class SudokuGrid
      */
     public abstract boolean validate();
 
+    //checks to see if there are any repeating numbers in the row
     public boolean rowConstraint(int row)
     {
         for (int c = 0; c<getSize(); c++)
@@ -89,6 +90,7 @@ public abstract class SudokuGrid
         return true;
     }
 
+    //checks to see if there are any repeating values in the col
     public boolean colConstraint(int col)
     {
         for (int r = 0; r<getSize(); r++)
@@ -105,6 +107,7 @@ public abstract class SudokuGrid
         return true;
     }
 
+    //finds the starting position of the box containing row and col
     public int[] getBoxStart(int row, int col)
     {
         int[] s = new int[2];
@@ -145,6 +148,7 @@ public abstract class SudokuGrid
             return false;
         }
 
+        //fills boxnum with all the values inside the box
         for (int r = s[0]; r<s[0]+getNumBoxes(); r++)
         {
             for (int c = s[1]; c<s[1]+getNumBoxes(); c++)
@@ -154,6 +158,7 @@ public abstract class SudokuGrid
             }
         }
 
+        //checks to see if there are any repeating numbers in the box
         for (int r = 0; r<getSize(); r++)
         {
             for (int r1 = r+1; r1<getSize(); r1++)
@@ -168,6 +173,7 @@ public abstract class SudokuGrid
         return true;
     }
 
+    //checks to see if every number is within the range of possible values
     public boolean validNumbers()
     {
         for (int r = 0; r<getSize(); r++)
@@ -184,6 +190,7 @@ public abstract class SudokuGrid
         return true;
     }
 
+    //checks if there are any empty spots in the grid
     public boolean isFull()
     {
         for (int row = 0; row<getSize(); row++)

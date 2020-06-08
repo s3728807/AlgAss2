@@ -21,6 +21,7 @@ public class KillerBackTrackingSolver extends KillerSudokuSolver
     public boolean solve(SudokuGrid grid) {
         int row = 0;
         int col = 0;
+        //finds the position that is empty 
         while (grid.getGrid()[row][col]!=SudokuGrid.EMPTY)
         {
             col++;
@@ -35,6 +36,7 @@ public class KillerBackTrackingSolver extends KillerSudokuSolver
             }
         }
 
+        //loops through every possible
         for (int testValue:grid.getPossibleValues())
         {
             //System.out.println("testbalue");
@@ -42,8 +44,10 @@ public class KillerBackTrackingSolver extends KillerSudokuSolver
 
             testGrid.getGrid()[row][col] = testValue;
 
+            //checks all the constraints to see if it is legal
             if (testGrid.rowConstraint(row) && testGrid.colConstraint(col) && testGrid.boxConstraint(row, col) && testGrid.cageConstraints(row, col))
             {
+                //recursion
                 if (solve(testGrid))
                 {
                     grid = testGrid.gridStdCopy();
